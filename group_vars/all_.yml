@@ -98,11 +98,5 @@ celery_enable: true
 # If set to True, the database will be dropped
 db_drop: false
 
-#-------------------------------------------------------------------------------
-# Caution with this!!!!!!!
-#-------------------------------------------------------------------------------
-# If set to true, fixture data will be added to the database
-run_dbseed: false
-
 
 
