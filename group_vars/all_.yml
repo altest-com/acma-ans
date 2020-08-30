@@ -1,0 +1,111 @@
+# App Name
+app_name: acma
+
+# Deployer User and Groups
+deployer_user: <your-user-name>
+deployer_group: <your-user-group>
+
+# Github Code's Repo URL
+api_repo_url: https://github.com/altest-com/acma-api
+spa_repo_url: https://github.com/altest-com/acma-spa
+
+# Download link to build version of spa
+spa_dist_url: <spa-dist-url>
+
+# App Directory
+app_dir: '/home/{{ deployer_user }}/{{app_name}}'
+app_api_dir: '{{app_dir}}/acma-api'
+app_spa_dir: '{{app_dir}}/acma-spa'
+app_spa_dist: '{{app_spa_dir}}/dist'
+env_file: '{{ app_dir }}/.env.prod'
+
+# DB Configuration
+db_name: '{{ app_name }}'
+db_user: '{{ deployer_user }}'
+db_host: localhost
+db_password: <your-db-password>
+
+# Application Dependencies Setup
+venv_root: '/home/{{ deployer_user }}/envs'
+venv_dir: '{{ venv_root }}/{{ app_name }}'
+python_bin: '{{ venv_dir }}/bin/python'
+gunicorn_bin: '{{ venv_dir }}/bin/gunicorn'
+
+# Directory where to put additional packages or files
+libs_dir: '/home/{{ deployer_user }}/libs'
+
+# Django admin user
+api_admin_user: '{{ deployer_user }}'
+api_admin_password: <your-admin-password>
+api_admin_email: <your-admin-email>
+
+###############################################################################
+# Celery variables
+###############################################################################
+
+# Absolute or relative path to the 'celery' command:
+celery_bin: '{{ venv_dir }}/bin/celery'
+
+# Name of nodes to start, here we have a single node
+celery_nodes: w1
+
+# Extra command-line arguments to the worker
+celery_opts: --time-limit=300 --concurrency=1
+
+# Runtime directories
+celery_run_dir: /var/run/celery
+celery_log_dir: /var/log/celery
+
+# Pid files
+celery_pid_file: '{{ celery_run_dir }}/%n.pid'
+celerybeat_pid_file: '{{ celery_run_dir }}/beat.pid'
+
+# Log files
+# %n will be replaced with the first part of the node name.
+# %I will be replaced with the current child process index
+# and is important when using the pre-fork pool to avoid race conditions.
+celery_log_level: INFO
+celery_log_file: '{{ celery_log_dir }}/%n%I.log'
+celerybeat_log_file: '{{ celery_log_dir }}/beat.log'
+
+###############################################################################
+# Server name
+###############################################################################
+server_name: <your-server-name>
+secret_key: <your-secret-key>
+
+###############################################################################
+# Control variables
+###############################################################################
+
+# Spa building and linking
+get_spa: true
+build_spa: false
+link_spa: true
+
+# Configure nginx
+config_nginx: true
+
+# SSL Certificate
+run_certbot: false
+
+# Enable celery
+celery_enable: true
+
+# Update stats and inventories
+update_stats: false
+
+#-------------------------------------------------------------------------------
+# Caution with this!!!!!!!
+#-------------------------------------------------------------------------------
+# If set to True, the database will be dropped
+db_drop: false
+
+#-------------------------------------------------------------------------------
+# Caution with this!!!!!!!
+#-------------------------------------------------------------------------------
+# If set to true, fixture data will be added to the database
+run_dbseed: false
+
+
+

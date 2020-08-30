@@ -1,0 +1,54 @@
+##
+# Update the APT package cache and install packages as a root user
+##
+- name: Install required packages
+  apt:
+    state: latest
+    name:
+    - build-essential
+    - libcairo2
+    - libpango-1.0-0
+    - libpangocairo-1.0-0
+    - libgdk-pixbuf2.0-0
+    - libffi-dev
+    - shared-mime-info
+    - python3-setuptools
+    - python3-wheel
+    - python3-dev
+    - python3-pip
+    - python3-cffi
+    - python3-virtualenv
+    - python3-psycopg2
+  become: yes
+
+- name: Create app directory
+  file:
+    path: '{{ app_dir }}'
+    state: directory
+
+- name: Create app api directory
+  file:
+    path: '{{ app_api_dir }}'
+    state: directory
+
+- name: Create app spa directory
+  file:
+    path: '{{ app_spa_dir }}'
+    state: directory
+
+- name: Create venv directory
+  file:
+    path: '{{ venv_root }}'
+    state: directory
+
+- name: Create libs directory
+  file:
+    path: '{{ libs_dir }}'
+    state: directory
+
+- name: Create the enviroment file for django
+  template:
+    src: .env.prod
+    dest: '{{ env_file }}'
+  become: yes
+

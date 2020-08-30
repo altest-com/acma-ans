@@ -1,0 +1,21 @@
+##
+# Clone and pull the repo
+##
+- name: Set up git configuration
+  apt:
+    name: git
+    state: latest
+  become: yes
+
+- name: Clone or pull the latest acma-api code
+  git:
+    repo: '{{ api_repo_url }}'
+    dest: '{{ app_api_dir }}'
+    force: yes
+
+- name: Clone or pull the latest acma-spa code
+  git:
+    repo: '{{ spa_repo_url }}'
+    dest: '{{ app_spa_dir }}'
+    force: yes
+  when: build_spa

@@ -1,0 +1,26 @@
+##
+# Install node and build spa
+##
+- name: add apt key for nodesource
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  become: yes
+
+- name: Add repo for nodesource
+  apt_repository:
+    repo: 'deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main'
+    update_cache: yes
+  become: yes
+
+- name: Install nodejs
+  apt: name=nodejs
+  become: yes
+
+- name: Install spa dependencies
+  npm:
+    path: '{{ app_spa_dir }}'
+
+- name: Build spa
+  shell:
+    cmd: npm run build:prod
+    chdir: '{{ app_spa_dir }}'

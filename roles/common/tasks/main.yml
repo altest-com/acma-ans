@@ -1,0 +1,23 @@
+##
+# Configure the server for the Django app
+##
+- include: 01_server.yml
+- include: 02_git.yml
+- include: 03_dependencies.yml
+- include: 04_postgres.yml
+- include: 05_build_spa.yml
+  when: build_spa
+- include: 05_get_spa.yml
+  when: get_spa
+- include: 06_migrations.yml
+- include: 07_nginx.yml
+  when: config_nginx
+- include: 08_gunicorn.yml
+  when: config_nginx
+- include: 09_redis.yml
+  when: celery_enable
+- include: 10_celery.yml
+  when: celery_enable
+- include: 11_certbot.yml
+  when: run_certbot
+- include: 12_restart.yml

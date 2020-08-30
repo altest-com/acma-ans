@@ -1,0 +1,14 @@
+##
+# Download SPA dist files
+##
+
+- name: Download spa dist
+  shell:
+    cmd: 'wget -O dist.tar.xz "{{spa_dist_url}}"'
+    chdir: '{{ app_spa_dir }}'
+
+
+- name: Uncompress spa dist
+  shell:
+    cmd: 'tar -xf dist.tar.xz'
+    chdir: '{{ app_spa_dir }}'

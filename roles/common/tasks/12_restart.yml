@@ -1,0 +1,22 @@
+##
+# Restart gunicorn and nginx
+##
+
+- name: restart gunicorn
+  service:
+    name: gunicorn
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Certbot information
+  pause:
+    prompt: 'IMPORTANT: Nginx config may have overwritten the certbot ssl settings. If you have SSL enabled, restore its settings by running "sudo certbot --nginx -d {{server_name}}.com -d www.{{ server_name }}.com"'
+  when: config_nginx

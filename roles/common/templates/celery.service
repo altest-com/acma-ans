@@ -1,0 +1,23 @@
+# /etc/systemd/system/celery.service
+
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type=forking
+User={{ deployer_user }}
+Group={{ deployer_group }}
+EnvironmentFile={{ env_file }}
+WorkingDirectory={{ app_api_dir }}
+ExecStart=/bin/sh -c '{{ celery_bin }} multi start {{celery_nodes}} \
+  -A {{ app_name }} --pidfile={{ celery_pid_file }} \
+  --logfile={{ celery_log_file }} --loglevel={{ celery_log_level }} {{celery_opts}}'
+ExecStop=/bin/sh -c '{{ celery_bin }} multi stopwait {{celery_nodes}} \
+  --pidfile={{ celery_pid_file }}'
+ExecReload=/bin/sh -c '{{ celery_bin }} multi restart {{celery_nodes}} \
+  -A {{ app_name }} --pidfile={{ celery_pid_file }} \
+  --logfile={{ celery_log_file }} --loglevel={{ celery_log_level }} {{celery_opts}}'
+
+[Install]
+WantedBy=multi-user.target

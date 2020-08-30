@@ -1,0 +1,94 @@
+##
+# Set up Redis
+##
+- name: Set up dependencies
+  apt:
+    state: latest
+    name:
+    - build-essential
+    - tcl
+  become: yes
+
+- name: Download redis
+  unarchive:
+    src: http://download.redis.io/redis-stable.tar.gz
+    copy: no
+    dest: '{{ libs_dir }}'
+    mode: u=rwx,g=rx,o=rx
+    owner: '{{ deployer_user }}'
+    group: '{{ deployer_user }}'
+
+- name: Make redis
+  make:
+    chdir: '{{ libs_dir }}/redis-stable'
+
+- name: Install redis
+  make:
+    chdir: '{{ libs_dir }}/redis-stable'
+    target: install
+  become: yes
+
+- name: Create redis directories
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - /etc/redis
+    - /var/lib/redis
+    - /var/log/redis
+  become: yes
+
+- name: Set redis default config
+  copy:
+    remote_src: yes
+    src: '{{ libs_dir }}/redis-stable/redis.conf'
+    dest: /etc/redis/default.conf
+    force: no
+  become: yes
+
+- name: Set redis config
+  template:
+    src: redis.conf
+    dest: /etc/redis/redis.conf
+    mode: '644'
+  become: yes
+
+- name: Install redis service
+  template:
+    src: redis.service
+    dest: /etc/systemd/system/redis.service
+    owner: root
+    group: root
+    mode: '644'
+  become: yes
+
+- name: Create redis group
+  group:
+    name: redis
+    state: present
+
+- name: Create redis user
+  user:
+    name: redis
+    group: redis
+    createhome: no
+
+- name: Set redis permissions
+  file:
+    path: '{{ item }}'
+    state: touch
+    owner: redis
+    group: redis
+    mode: '770'
+  with_items:
+    - /etc/redis
+    - /var/lib/redis
+    - /var/log/redis
+  become: yes
+
+- name: Start and enable redis service
+  service:
+    name: redis
+    enabled: yes
+    state: started
+  become: yes
