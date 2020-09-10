@@ -52,9 +52,13 @@ celery_nodes: w1
 # Extra command-line arguments to the worker
 celery_opts: --time-limit=300 --concurrency=1
 
+# Services names
+celery_name: 'celery-{{ app_name }}'
+celerybeat_name: 'celerybeat-{{ app_name }}'
+
 # Runtime directories
-celery_run_dir: /var/run/celery
-celery_log_dir: /var/log/celery
+celery_run_dir: '/var/run/celery-{{ app_name }}'
+celery_log_dir: '/var/log/celery-{{ app_name }}'
 
 # Pid files
 celery_pid_file: '{{ celery_run_dir }}/%n.pid'
@@ -69,8 +73,15 @@ celery_log_file: '{{ celery_log_dir }}/%n%I.log'
 celerybeat_log_file: '{{ celery_log_dir }}/beat.log'
 
 ###############################################################################
-# Server name
+# Gunicorn
 ###############################################################################
+gunicorn_workers: 5
+gunicorn_name: 'gunicorn-{{ app_name }}'
+
+###############################################################################
+# Nginx
+###############################################################################
+server_www: true
 server_name: <your-server-name>
 secret_key: <your-secret-key>
 

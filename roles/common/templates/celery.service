@@ -1,7 +1,7 @@
-# /etc/systemd/system/celery.service
+# /etc/systemd/system/{{ celery_name }}.service
 
 [Unit]
-Description=Celery Service
+Description={{app_name}} celery service
 After=network.target
 
 [Service]

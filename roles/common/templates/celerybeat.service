@@ -1,7 +1,7 @@
-# /etc/systemd/system/celerybeat.service
+# /etc/systemd/system/{{ celerybeat_name }}.service
 
 [Unit]
-Description=Celery Beat Service
+Description={{app_name}} celery beat service
 After=network.target
 
 [Service]

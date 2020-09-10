@@ -20,25 +20,25 @@
 - name: Create the celery service
   template:
     src: celery.service
-    dest: /etc/systemd/system/celery.service
+    dest: '/etc/systemd/system/{{celery_name}}.service'
   become: yes
 
 - name: Create the celery beat service
   template:
     src: celerybeat.service
-    dest: /etc/systemd/system/celerybeat.service
+    dest: '/etc/systemd/system/{{celerybeat_name}}.service'
   become: yes
 
 - name: Start and enable celery
   service:
-    name: celery.service
+    name: '{{celery_name}}.service'
     enabled: yes
     state: started
   become: yes
 
 - name: Start and enable celerybeat
   service:
-    name: celerybeat.service
+    name: '{{celerybeat_name}}.service'
     enabled: yes
     state: started
   become: yes
