@@ -15,7 +15,7 @@
 - include: 08_gunicorn.yml
   when: config_nginx
 - include: 09_redis.yml
-  when: celery_enable
+  when: setup_redis
 - include: 10_celery.yml
   when: celery_enable
 - include: 11_certbot.yml
