@@ -1,6 +1,9 @@
 # App Name
 app_name: acma
 
+# Server base url
+base_url: <server-base-url>
+
 # Deployer User and Groups
 deployer_user: <your-user-name>
 deployer_group: <your-user-group>
@@ -84,6 +87,12 @@ gunicorn_name: 'gunicorn-{{ app_name }}'
 server_www: true
 server_name: <your-server-name>
 secret_key: <your-secret-key>
+
+###############################################################################
+# Email
+###############################################################################
+email_username: <your-smtp-server-username>
+email_password: <your-smtp-server-password>
 
 ###############################################################################
 # Control variables
