@@ -109,7 +109,7 @@ config_nginx: true
 # SSL Certificate
 run_certbot: false
 
-# Build redis
+# Setup redis
 setup_redis: true
 
 # Enable celery

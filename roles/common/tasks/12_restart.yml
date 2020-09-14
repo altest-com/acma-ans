@@ -18,5 +18,5 @@
 
 - name: Certbot information
   pause:
-    prompt: 'IMPORTANT: Nginx config may have overwritten the certbot ssl settings. If you have SSL enabled, restore its settings by running "sudo certbot --nginx -d {{server_name}}.com -d www.{{ server_name }}.com"'
+    prompt: 'IMPORTANT: Nginx config may have overwritten the certbot ssl settings. If you have SSL enabled, restore its settings by running "sudo certbot --nginx -d {{server_name}} -d www.{{ server_name }}"'
   when: config_nginx
