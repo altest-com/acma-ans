@@ -16,6 +16,22 @@
     enabled: yes
   become: yes
 
+- name: restart celery
+  service:
+    name: '{{celery_name}}'
+    state: restarted
+    enabled: yes
+  become: yes
+  when: celery_enable
+
+- name: restart celerybeat
+  service:
+    name: '{{celerybeat_name}}'
+    state: restarted
+    enabled: yes
+  become: yes
+  when: celery_enable
+
 - name: Certbot information
   pause:
     prompt: 'IMPORTANT: Nginx config may have overwritten the certbot ssl settings. If you have SSL enabled, restore its settings by running "sudo certbot --nginx -d {{server_name}} -d www.{{ server_name }}"'
