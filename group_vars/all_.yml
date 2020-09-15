@@ -53,7 +53,7 @@ celery_bin: '{{ venv_dir }}/bin/celery'
 celery_nodes: w1
 
 # Extra command-line arguments to the worker
-celery_opts: --time-limit=300 --concurrency=1
+celery_opts: --concurrency=1
 
 # Services names
 celery_name: 'celery-{{ app_name }}'
