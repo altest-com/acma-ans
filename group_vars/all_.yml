@@ -42,6 +42,9 @@ api_admin_user: '{{ deployer_user }}'
 api_admin_password: <your-admin-password>
 api_admin_email: <your-admin-email>
 
+# Sentry
+sentry_dsn: <your-sentry-dsn>
+
 ###############################################################################
 # Celery variables
 ###############################################################################
