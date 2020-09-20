@@ -3,12 +3,17 @@
 ##
 
 - name: Download spa dist
-  shell:
-    cmd: 'wget -O dist.tar.xz "{{spa_dist_url}}"'
-    chdir: '{{ app_spa_dir }}'
+  aws_s3:
+    bucket: '{{ aws_bucket_name }}'
+    object: '{{ spa_file_name }}'
+    dest: '{{ app_spa_dir }}/{{ spa_file_name }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
+    mode: get
 
 
 - name: Uncompress spa dist
-  shell:
-    cmd: 'tar -xf dist.tar.xz'
-    chdir: '{{ app_spa_dir }}'
+  unarchive:
+    src: '{{ app_spa_dir }}/{{ spa_file_name }}'
+    dest: '{{ app_spa_dir }}'
+    remote_src: yes
