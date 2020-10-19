@@ -1,0 +1,17 @@
+[DEFAULT]
+# Ban hosts for one hour:
+bantime = 3600
+
+banaction = iptables-multiport
+
+# These lines combine to ban clients that fail to authenticate 6 times within
+# a hour.
+findtime = 7200
+maxretry = 1
+
+[sshd]
+enabled = true
+port = 22
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 1
