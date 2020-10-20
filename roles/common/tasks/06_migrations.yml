@@ -23,6 +23,13 @@
     - api_admin_password is defined
     - api_admin_email is defined
 
+- name: Fill database with static data
+  shell:
+    cmd: >
+      set -a; . {{ env_file }}; set +a;
+      {{ python_bin }} manage.py fill_data
+    chdir: '{{ app_api_dir }}'
+
 - name: Get all static files
   shell:
     cmd: 'set -a; . {{ env_file }}; set +a; {{ python_bin }} manage.py collectstatic --noinput --clear'
