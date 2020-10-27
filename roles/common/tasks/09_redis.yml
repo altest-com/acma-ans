@@ -66,12 +66,14 @@
   group:
     name: redis
     state: present
+  become: yes
 
 - name: Create redis user
   user:
     name: redis
     group: redis
     createhome: no
+  become: yes
 
 - name: Set redis permissions
   file:
