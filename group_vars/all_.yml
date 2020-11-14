@@ -27,7 +27,7 @@ env_file: '{{ app_dir }}/.env.prod'
 
 # DB Configuration
 db_name: '{{ app_name }}'
-db_user: '{{ deployer_user }}'
+db_user: '{{ app_name }}'
 db_host: localhost
 db_password: <your-db-password>
 
@@ -99,6 +99,7 @@ secret_key: <your-secret-key>
 ###############################################################################
 email_username: <your-smtp-server-username>
 email_password: <your-smtp-server-password>
+email_sender: <your-smtp-server-email>
 
 ###############################################################################
 # Control variables
