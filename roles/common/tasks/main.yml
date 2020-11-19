@@ -20,4 +20,5 @@
   when: celery_enable
 - include: 11_certbot.yml
   when: run_certbot
-- include: 12_restart.yml
+- include: 12_logrotate.yml
+- include: 13_restart.yml
