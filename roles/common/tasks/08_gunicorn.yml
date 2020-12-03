@@ -1,6 +1,13 @@
 ##
 # Set up Gunicorn
 ##
+- name: Create log directory
+  file:
+    path: '{{ gunicorn_log_dir }}'
+    state: directory
+    owner: '{{ deployer_user }}'
+    group: '{{ deployer_group }}'
+  become: yes
 
 - name: Create the gunicorn socket
   template:

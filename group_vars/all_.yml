@@ -90,6 +90,8 @@ celerybeat_log_file: '{{ celery_log_dir }}/beat.log'
 ###############################################################################
 gunicorn_workers: 5
 gunicorn_name: 'gunicorn-{{ app_name }}'
+gunicorn_log_dir: '/var/log/gunicorn'
+gunicorn_log_file: '{{ gunicorn_log_dir }}/{{ app_name }}.log'
 
 ###############################################################################
 # Nginx

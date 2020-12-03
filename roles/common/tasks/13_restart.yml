@@ -4,7 +4,7 @@
 
 - name: restart gunicorn
   service:
-    name: '{{ gunicorn_name }}'
+    name: '{{ gunicorn_name }}.service'
     state: restarted
     enabled: yes
   become: yes
